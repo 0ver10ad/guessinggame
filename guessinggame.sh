@@ -2,18 +2,23 @@
 
 num_file=$(ls -l|grep "^-"|wc -l) # get file numbers
 
+function getInput {
+  read num
+  local flag=true
+  # input must be an integer
+  while $flag
+  do
+    expr $num + 0 &>/dev/null
+    [ $? -eq 0 ] && flag=false || read -p "Please input a number: " num
+  done
+  echo $num
+}
+
 echo "Question: How many visible files are there in this working directory?"
 echo -n "Answer: "
 while true  # infinite loop
 do
-  read ans
-  # check valid input
-  flag=true
-  while $flag
-  do
-    expr $ans + 0 &>/dev/null
-    [ $? -eq 0 ] && flag=false || read -p "Please input a number: " ans
-  done
+  ans=$(getInput)
   # compare answer
   if [[ $ans -eq $num_file ]];then
     echo "Congratulation!"
