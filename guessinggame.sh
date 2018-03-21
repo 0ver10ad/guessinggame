@@ -12,15 +12,16 @@ do
   while $flag
   do
     expr $ans + 0 &>/dev/null
-    [ $? -eq 0 ] && flag=false || read -p "please input a number:" ans
+    [ $? -eq 0 ] && flag=false || read -p "Please input a number: " ans
   done
   # compare answer
-  if [[ $ans -eq $num_file ]]
-  then
+  if [[ $ans -eq $num_file ]];then
     echo "Congratulation!"
     exit 0
+  elif [[ $ans -gt $num_file ]];then
+    echo -n "Answer is too high, guess again: "
   else
-    echo -n "Wrong, guess again: "
+    echo -n "Answer is too low, guess again: " 
   fi
 done
 
